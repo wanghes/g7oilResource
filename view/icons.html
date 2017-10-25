@@ -1,0 +1,42 @@
+<div class="tpl-portlet-components">
+    <div class="portlet-title">
+        <div class="caption font-green bold">
+            <span class="am-icon-code"></span> <%= title %>
+        </div>
+    </div>
+    <style type="text/css">
+        .icons_flex_box{
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 1px solid #ccc;
+           flex-wrap: wrap;
+        }
+        .icons_flex_box .item{
+            background: #f2f2f2;
+            padding: 20px 0;
+            cursor: pointer;
+            width:25%;
+            border:1px solid #ddd;
+            text-align: center;
+            transition: all .3s linear;
+        }
+        .icons_flex_box .item:hover{
+            background: #fff;
+        }
+        .icons_flex_box .item svg{
+            width:100px;
+            margin-bottom: 10px;
+            height: 100px;
+        }
+    </style>
+    <div class="tpl-block">
+        <ul class="icons_flex_box">
+            <% svgs.forEach(function(item,index){ %>
+             <li class="item">
+                <embed src="<%= item.path %>" type="image/svg+xml" />
+                <div><%= item.name %></div>
+            </li>
+            <% }) %>
+        </ul>
+    </div>
+</div>
