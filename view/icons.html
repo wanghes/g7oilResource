@@ -1,7 +1,8 @@
 <div class="tpl-portlet-components">
     <div class="portlet-title">
-        <div class="caption font-green bold">
-            <span class="am-icon-code"></span> <%= title %>
+        <div class="caption font-green bold am-cf" style="display: block; width:100%;">
+            <label class="am-fl"><span class="am-icon-code"></span> <%= title %></label>
+            <button type="button" class="am-btn am-btn-default am-btn-success am-fr" data-am-modal="{target: '#uploadSvg'}"><span class="am-icon-plus"></span> 上传svg文件</button>
         </div>
     </div>
     <style type="text/css">
@@ -29,6 +30,7 @@
             height: 100px;
         }
     </style>
+
     <div class="tpl-block">
         <ul class="icons_flex_box">
             <% svgs.forEach(function(item,index){ %>
@@ -38,5 +40,23 @@
             </li>
             <% }) %>
         </ul>
+    </div>
+</div>
+
+<div class="am-modal am-modal-alert" tabindex="-1" id="uploadSvg">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">Amaze UI</div>
+        <div class="am-modal-bd">
+            <form id= "uploadForm">
+                <div class="am-form-group am-form-file">
+                    <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                    <i class="am-icon-cloud-upload"></i> 添加svg</button>
+                    <input type="file" name="file" id="svg_input">
+                </div>
+            </form>
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" id="uploadSvgBtn">确定上传</span>
+        </div>
     </div>
 </div>

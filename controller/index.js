@@ -1,18 +1,13 @@
 const menu = require("../menu");
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
+
+
 const redirect = ctx => {
   ctx.response.redirect('/');
 };
-function exists(path){  
-     return fs.existsSync(path);  
-}  
-function isFile(path){  
-    return exists(path) && fs.statSync(path).isFile();  
-}  
-function isDir(path){  
-    return exists(path) && fs.statSync(path).isDirectory();  
-}  
+
 
 const sleep  = ()=>{
 	return new Promise((resolve,resject)=>{
@@ -61,19 +56,26 @@ const icons = async (ctx) =>{
 	})
 }
 
-const bookDetail = async (ctx,id) =>{
-	await sleep(2000);
-	if(ctx.request.query.type!="detail"){
-		ctx.throw(400,'type error',{ user: "wawwaw" }); 
+const uploadIcons = async (ctx) =>{
+	const file = ctx.request.body.files.file;
+	let ext = file.name.split('.').pop();
+	if(ext!="svg"){
+		return ctx.body = {status:false,message:"文件类型错误"};
 	}
-	let value = booklist.filter((item)=>{
-		return item.id == id
-	})
-	ctx.response.body = value[0];
+	const reader = fs.createReadStream(file.path);
+	const stream = fs.createWriteStream(path.resolve(__dirname , '../resource/svg/'+file.name),{flags:"w",encoding: "utf8",mode: 0666});
+	reader.pipe(stream);
+	if(stream.path){
+		ctx.body = {status:true};
+	}else{
+		ctx.body = {status:false};
+	}
+	
 }
 
 module.exports = {
 	redirect,
 	index,
 	icons,
+	uploadIcons
 }
